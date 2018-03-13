@@ -71,7 +71,7 @@ I asked about this in an [SO question](https://stackoverflow.com/q/49170998/2456
 
 A simple generator with two loops that hopefully make clear the order in which things are happening:
 
-```
+```Javascript
 function* foo() {
   yield 'p';
   console.log('o');
@@ -192,13 +192,13 @@ So generators can play three roles:
 * Observers (data consumers) - they can be data consumers that pause until a new value is pushed into them via `next()`.
 * Coroutines (data producers and consumers) - as pausable producers and consumers, little is needed to turn them into coroutines (cooperatively multitasked tasks).
 
-`next()`, `return()` and `throw()` actually make up the `Observer` interface:
+`next()`, `return()` and `throw()` actually make up the `Observer` interface (given in here in TypeScript syntax):
 
-```
+```TypeScript
 interface Observer {
-    next(value? : any) : void;
-    return(value? : any) : void;
-    throw(error) : void;
+    next(value?: any): void;
+    return(value?: any): void;
+    throw(error): void;
 }
 ```
 
@@ -564,7 +564,9 @@ await p2;
 
 Now awaiting on `p1` isn't stopping `p2` being resolved. But while you end up with the same behavior as `Promise.all(...)` then intention is less clear and the risk of messing up higher. As `Promise.all` itself returns a promise you're better off mixing `await` and `Promise.all` like so:
 
-    var [a, b] = await Promise.all([ alpha(), beta() ]);
+```Javascript
+var [a, b] = await Promise.all([ alpha(), beta() ]);
+```
 
 Note: initially there was a proposal for a `await*` keyword that could take an iterable of promises but this was rejected as it was felt it would create the false impression that it was analagous to `yield*` (search for `await*` in the [April 10, 2014 ECMA meeting note](https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-04/apr-10.md)).
 
