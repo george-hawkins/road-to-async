@@ -598,3 +598,18 @@ var message = await Promise.race([ alpha('a'), alpha('b') ]);
 
 console.log(message);
 ```
+
+Further reading
+---------------
+
+There seems to be no end to how far one can go with all this. The next step seems to be asynchronous iterators, with a new for-await-of construct and using `async` with `function*`. These are discussed in the [ECMA asynchronous iterators proposal](https://github.com/tc39/proposal-async-iteration) which is only just being introduced into engines (it first made it into the V8 engine in Chrome 63 released in December 2017).
+
+Axel Rauschmayer discusses all this in detail in the article "[ES2018: asynchronous iteration](http://2ality.com/2016/10/asynchronous-iteration.html)", however in his [conclusion](http://2ality.com/2016/10/asynchronous-iteration.html#is-async-iteration-worth-it) he does discuss whether it's all worth it and notes that "async iteration brings with it considerable additional cognitive load."
+
+I'd say this is already true for `async`/`await` - it may result in cleaner looking code than chaining promises but it seems to me that the pushing and popping of stack frames is far harder to think clearly about than what's happening when one explicitly uses promises.
+
+Axel mentions Reactive, i.e. for Javascript [RxJS](https://github.com/ReactiveX/RxJS), as an alternative approach.
+
+Eric Elliot also mentions RxJS in his "[The Hidden Power of ES6 Generators](https://medium.com/javascript-scene/the-hidden-power-of-es6-generators-observable-async-flow-control-cfa4c7f31435)" article in the section "From Promises to Observables". In this section he discusses moving from promises (that can only emit one value) to observables (that can emit many values over time). He also references the "[General Theory of Reactivity](https://github.com/kriskowal/gtor)" presentation that looks like it might itself be interesting to go through.
+
+Note: don't get `Observable` mixed up with `Observer` which was mentioned up above. The `Observer` interface discussed up there combines with the `Iterator` interface to form the [`Generator` interface](http://2ality.com/2015/03/es6-generators.html#the-full-generator-interface). In Reactive you have both [observers](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Observer.html) and [observables](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Observable.html) - for a discussion of the relationship between the two see [here](http://reactivex.io/documentation/observable.html).
