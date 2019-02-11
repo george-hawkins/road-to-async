@@ -216,10 +216,10 @@ Note: you'll have to kick off this consumer with an initial `next()` before you 
 
 ```Javascript
 const consumer = dataConsumer();
-next();
+consumer.next();
 
-next('a');
-next('b');
+consumer.next('a');
+consumer.next('b');
 ```
 
 Example of a data consumer that adds line numbers:
